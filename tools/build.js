@@ -11,7 +11,7 @@ const pipe = (fn,...fns) => (...params) =>
 process.env.NODE_ENV = 'production';
 
 
-console.log(chalk.blue('Generating minified bundle for production. Thiw will take a moment...'));
+console.log(chalk.blue('Generating minified bundle for production. This will take a moment...'));
 
 webpack(webpackConfig({isDev: false})).run((err,stats) => {
   if (err) {

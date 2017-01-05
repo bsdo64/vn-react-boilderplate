@@ -30,7 +30,7 @@
       "use-isnan": "error",
       "default-case": "error",
       "eqeqeq": "error",
-      "no-alert": "error",
+      "no-alert": "warn",
       "no-caller": "error",
       "no-eval": "error",
       "no-labels": "error",
