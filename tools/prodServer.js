@@ -1,8 +1,8 @@
-import express from 'express';
-import path from 'path';
-import chalk from 'chalk';
-import open from 'open';
-import compression from 'compression';
+const express = require('express');
+const path = require('path');
+const chalk = require('chalk');
+const open = require('open');
+const compression = require('compression');
 
 
 console.log(chalk.blue('Testing release build'));

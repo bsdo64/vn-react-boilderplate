@@ -12,7 +12,7 @@ import {rootReducer} from './reducers';
 import {routes} from './routes';
 
 //---Startup code
-moment.locale('es');
+moment.locale('en');
 const composeEnhancers = process.env.NODE_ENV === 'production' ? compose : (window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose);
 const store = createStore(rootReducer,composeEnhancers(applyMiddleware(thunk)));
 //--------------

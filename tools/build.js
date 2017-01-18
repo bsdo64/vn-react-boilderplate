@@ -1,31 +1,34 @@
-import webpack from 'webpack';
-import webpackConfig from './webpack.config';
-import chalk from 'chalk';
-
-const pipe = (fn,...fns) => (...params) =>
-  fns.length === 0
-    ? fn(...params)
-    : pipe(...fns)(fn(...params));
+const webpack =  require('webpack');
+const webpackConfig = require('./webpack.config');
+const chalk = require('chalk');
 
 
 process.env.NODE_ENV = 'production';
 
-
 console.log(chalk.blue('Generating minified bundle for production. This will take a moment...'));
 
-webpack(webpackConfig({isDev: false})).run((err,stats) => {
+let compiler = null;
+
+try {
+  compiler = webpack(webpackConfig({isDev: false}));
+} catch(err) {
+  console.log(err);
+  throw err;
+}
+
+compiler.run((err,stats) => {
   if (err) {
-    console.log(chalk.red(err));
+    console.log(chalk.red(err.message));
     return 1;
   }
 
   const jsonStats = stats.toJson();
 
   if (jsonStats.hasErrors)
-    return jsonStats.errors.map(pipe(chalk.red,console.log));
+    return jsonStats.errors.map(err => console.log(chalk.red(err)));
 
   if (jsonStats.hasWarning)
-    jsonStats.warnings.map(pipe(chalk.yellow,console.log));
+    jsonStats.warnings.map(warn => console.log(chalk.yellow(warn)));
 
   console.log(chalk.bold(`Webpack stats: ${stats}`));
   console.log(chalk.green('Your app has been build for production and written to /dist!'));

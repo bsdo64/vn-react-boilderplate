@@ -1,10 +1,10 @@
-import webpack from 'webpack';
-import path from 'path';
-import HTMLWebpackPlugin from 'html-webpack-plugin';
-import ExtractTextPlugin from 'extract-text-webpack-plugin';
-import WebpackMd5Hash from 'webpack-md5-hash';
+const webpack = require('webpack');
+const path = require('path');
+const HTMLWebpackPlugin = require('html-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const WebpackMd5Hash = require('webpack-md5-hash');
 
-export default ({isDev}) => {
+module.exports = ({isDev}) => {
   const ifDev = then => (isDev ? then : null);
   const ifProd = then => (!isDev ? then : null);
   const nullsOut = i => i;
@@ -23,7 +23,7 @@ export default ({isDev}) => {
       filename: isDev ? '[name].js' : '[name].[chunkhash].js'
     },
     performance: {
-      hints: !isDev
+      hints: false
     },
     plugins: [
       new webpack.DefinePlugin({'process.env': { NODE_ENV: JSON.stringify(isDev ? 'development' : 'production') } }),

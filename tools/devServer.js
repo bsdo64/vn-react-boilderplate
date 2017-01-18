@@ -1,8 +1,8 @@
-import WebpackDevServer from 'webpack-dev-server';
-import webpack from 'webpack';
-import config from './webpack.config';
-import chalk from 'chalk';
-import open from 'open';
+const WebpackDevServer  = require('webpack-dev-server');
+const webpack  = require('webpack');
+const config  = require('./webpack.config');
+const chalk  = require('chalk');
+const open = require('open');
 
 console.log(chalk.blue('Starting WebpackDevServer debug'));
 
@@ -15,7 +15,7 @@ try {
     historyApiFallback: true,
     hot: true,
     inline: true,
-    stats: { colors: true, assets: false },
+    stats: { colors: true, assets: false, source: false, timings: true, hash: false, version: false, chunkModules: false, chunkOrigins: true },
   });
 
   server.listen(80,'0.0.0.0', () => {
