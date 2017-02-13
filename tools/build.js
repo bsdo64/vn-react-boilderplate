@@ -22,7 +22,8 @@ compiler.run((err,stats) => {
     return 1;
   }
 
-  const jsonStats = stats.toJson();
+  const options = { maxModules: 20000, chunkModules: true, showModules: true, };
+  const jsonStats = stats.toJson(options);
 
   if (jsonStats.hasErrors)
     return jsonStats.errors.map(err => console.log(chalk.red(err)));
@@ -30,7 +31,7 @@ compiler.run((err,stats) => {
   if (jsonStats.hasWarning)
     jsonStats.warnings.map(warn => console.log(chalk.yellow(warn)));
 
-  console.log(chalk.bold(`Webpack stats: ${stats}`));
+  console.log(chalk.bold(`Webpack stats: ${stats.toString(options)}`));
   console.log(chalk.green('Your app has been build for production and written to /dist!'));
 
   return 0;
