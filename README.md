@@ -28,4 +28,4 @@ If you use vscode I recommend the following plugins:
   * npm
   * npm Intellisense
   * Path Intellisense
-  * Auto Rename Tag
+  * ~~Auto Rename Tag~~ this is buggy and causes my vs code to hang
