@@ -23,7 +23,13 @@ module.exports = ({isDev}) => {
       filename: isDev ? '[name].js' : '[name].[chunkhash].js'
     },
     performance: {
-      hints: false
+      hints: "warning", // enum
+      maxAssetSize: 200000, // int (in bytes),
+      maxEntrypointSize: 400000, // int (in bytes)
+      assetFilter: function(assetFilename) {
+        // Function predicate that provides asset filenames
+        return assetFilename.endsWith('.css') || assetFilename.endsWith('.js');
+      }
     },
     plugins: [
       new webpack.DefinePlugin({'process.env': { NODE_ENV: JSON.stringify(isDev ? 'development' : 'production') } }),

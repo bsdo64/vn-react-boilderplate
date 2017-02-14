@@ -18,9 +18,9 @@ try {
     stats: { colors: true, assets: false, source: false, timings: true, hash: false, version: false, chunkModules: false, chunkOrigins: true },
   });
 
-  server.listen(80,'0.0.0.0', () => {
-    console.log(chalk.green('Listening on port 80'));
-    open('http://localhost');
+  server.listen(3000,'0.0.0.0', () => {
+    console.log(chalk.green('Listening on port 3000'));
+    open('http://localhost:3000');
   });
 
 } catch (ex) {

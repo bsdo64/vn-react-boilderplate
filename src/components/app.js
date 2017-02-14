@@ -8,16 +8,15 @@ import {bindActionCreators} from 'redux';
 
 import {displayMessage} from '../actions';
 
+import Contents from './Contents';
 
 export class _App extends React.Component {
 
-  static defaultProps = { message: '' }
+  static defaultProps = { message: '' };
   static propTypes = {
     message: React.PropTypes.string.isRequired,
     displayMessage: React.PropTypes.func.isRequired
-  }
-
-  sayHello = () => this.props.displayMessage(words[Math.floor(Math.random() * words.length)]);
+  };
 
   render = () => {
     return (
@@ -33,8 +32,7 @@ export class _App extends React.Component {
           ]}
           link={[{rel: "icon", href: require('../../assets/img/favicon.png'), type: 'image/png', sizes: '32x32' }]} />
 
-        <h1 onClick={this.sayHello}>Hello</h1>
-        <p className="world">{this.props.message}</p>
+        <Contents {...this.props} />
       </div>
     );
   }
@@ -43,30 +41,3 @@ export class _App extends React.Component {
 const mapStateToProps = state => ({message: state.message });
 const mapDispatchToProps = dispatch => bindActionCreators({displayMessage},dispatch);
 export const App = connect(mapStateToProps,mapDispatchToProps)(_App);
-
-
-const words = [
-  "Hommie",
-  "Dude",
-  "Super Dev",
-  "Dev",
-  "Reduxer",
-  "YOLO",
-  "BYE",
-  "Crazy",
-  "Superman",
-  "Github",
-  "React",
-  "Redux",
-  "Facebook",
-  "Duck",
-  "SHIELD",
-  "Captain",
-  "World",
-  "Mars",
-  "Webpack",
-  "You",
-  "Hello",
-  "Japanese people",
-  "Gaeron!",
-];
