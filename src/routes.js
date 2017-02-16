@@ -1,7 +1,15 @@
-import React from 'react';
-import {Route} from 'react-router';
-import {App} from './components/app';
+import { App } from './components/app';
 
-export const routes = (
-  <Route path="/" component={App} />
-);
+export const routes = {
+  childRoutes: [ {
+    path: '/',
+    component: App,
+    // childRoutes: [
+    //   require('./routes/Calendar'),
+    //   require('./routes/Course'),
+    //   require('./routes/Grades'),
+    //   require('./routes/Messages'),
+    //   require('./routes/Profile')
+    // ]
+  } ]
+};

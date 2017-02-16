@@ -14,7 +14,7 @@ module.exports = ({isDev}) => {
     target: 'web',
     context: path.resolve(__dirname, '../src'),
     entry: {
-      vendor: [ifDev('react-hot-loader/patch'),ifDev('webpack-dev-server/client'),ifDev('webpack/hot/only-dev-server'), 'react-hot-loader','./appLibs'].filter(nullsOut),
+      vendor: [ifDev('react-hot-loader/patch'),ifDev('webpack-dev-server/client'),ifDev('webpack/hot/only-dev-server'), ifDev('react-hot-loader'), './appLibs'].filter(nullsOut),
       main: './appLoader',
     },
     output: {
@@ -50,19 +50,45 @@ module.exports = ({isDev}) => {
           loader: 'babel-loader'
         },
         {
-          test: /\.(css|scss)$/,
+          test: /\.scss$/,
           include: [path.resolve(__dirname,'../src')],
-          loader: isDev ? 'style-loader!css-loader?sourceMap!sass-loader?sourceMap' : ExtractTextPlugin.extract({loader: 'css-loader?sourceMap!sass-loader?sourceMap'})
+          loader: isDev ?
+            'style-loader!css-loader?sourceMap!sass-loader?sourceMap' :
+            ExtractTextPlugin.extract({loader: 'css-loader?sourceMap!sass-loader?sourceMap'})
         },
         {
           test: /\.css$/,
-          include: [path.resolve(__dirname,'../node_modules/normalize.css')],
-          loader: isDev ? 'style-loader!css-loader' : ExtractTextPlugin.extract({loader: 'css-loader'})
+          include: [
+            path.resolve(__dirname,'../node_modules/normalize.css'),
+            path.resolve(__dirname,'../src'),
+          ],
+          use: isDev ? [
+              'style-loader',
+              { loader: 'css-loader',
+                options: {
+                  modules: true,
+                  importLoaders: 1,
+                  localIdentName: '[path][name]__[local]--[hash:base64:5]'
+                }
+              },
+              'postcss-loader'
+            ] : ExtractTextPlugin.extract({
+              fallbackLoader: 'style-loader',
+              loader: 'css-loader?modules&importLoaders=1!postcss-loader'
+            }),
+
         },
         {
           test: /\.(png|jpg|wav|mp3)$/,
-          include: [path.resolve(__dirname, '../assets')],
-          loader: 'url-loader?limit=4096'
+          include: [
+            path.resolve(__dirname, '../assets')
+          ],
+          use: {
+            loader: 'url-loader',
+            options: {
+              limit: 4096,
+            }
+          }
         },
         {
           test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,

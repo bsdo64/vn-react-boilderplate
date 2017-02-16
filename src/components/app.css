@@ -1,0 +1,22 @@
+html {
+  height: 100%;
+  font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
+}
+
+body {
+  font-size: 12px;
+  height: inherit;
+}
+
+a {
+  color: aqua;
+  text-decoration: none;
+}
+
+:global #root {
+  height: 100%;
+}
+
+.app {
+  height: 100%;
+}
